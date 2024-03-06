@@ -19,7 +19,9 @@ export function Filter({ filter, selected, ...othersProps }: FilterProps) {
 }
 
 const styles = StyleSheet.create({
-  pressable: {},
+  pressable: {
+    paddingBottom: 8,
+  },
   text: {
     color: theme.colors.white,
     fontSize: 16,

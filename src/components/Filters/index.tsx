@@ -33,7 +33,6 @@ export function Filters({ filter, filters, onChange }: FiltersProps) {
 const styles = StyleSheet.create({
   list: {
     marginBottom: 16,
-    maxHeight: 32,
   },
   content: {
     gap: 24,
