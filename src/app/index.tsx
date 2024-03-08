@@ -1,7 +1,10 @@
+import { router } from "expo-router";
 import { Skeleton } from "moti/skeleton";
 import { useEffect } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import Animated, {
+  SlideInDown,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSequence,
@@ -13,6 +16,7 @@ import { theme } from "@/theme";
 export default function Splash() {
   const logoScale = useSharedValue(1);
   const logoPositionY = useSharedValue(0);
+  const contentDisplay = useSharedValue(0);
 
   const dimensions = useWindowDimensions();
 
@@ -23,6 +27,16 @@ export default function Splash() {
     ],
   }));
 
+  const contentAnimatedStyle = useAnimatedStyle(() => ({
+    display: contentDisplay.value === 1 ? "flex" : "none",
+  }));
+
+  function onEndSplash() {
+    setTimeout(() => {
+      router.push("/(tabs)");
+    }, 2000);
+  }
+
   function logoAnimation() {
     logoScale.value = withSequence(
       withTiming(0.7),
@@ -30,9 +44,11 @@ export default function Splash() {
       withTiming(1, undefined, (finished) => {
         if (finished) {
           logoPositionY.value = withSequence(
-            withTiming(50),
+            withTiming(50, undefined, () => (contentDisplay.value = 1)),
             withTiming(-dimensions.height, { duration: 400 }),
           );
+
+          runOnJS(onEndSplash)();
         }
       }),
     );
@@ -73,10 +89,15 @@ export default function Splash() {
         style={[styles.logo, logoAnimatedStyle]}
       />
 
-      <View style={styles.boxes}>
-        <View style={styles.column}>{boxes("left")}</View>
-        <View style={styles.column}>{boxes("right")}</View>
-      </View>
+      <Animated.View
+        style={[styles.content, contentAnimatedStyle]}
+        entering={SlideInDown.duration(700)}
+      >
+        <View style={styles.boxes}>
+          <View style={styles.column}>{boxes("left")}</View>
+          <View style={styles.column}>{boxes("right")}</View>
+        </View>
+      </Animated.View>
     </View>
   );
 }
@@ -87,10 +108,15 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.black,
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 12,
   },
   logo: {
     width: 64,
     height: 64,
+  },
+  content: {
+    flex: 1,
+    width: "100%",
   },
   boxes: {
     flex: 1,
