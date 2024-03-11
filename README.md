@@ -1,3 +1,9 @@
+# Davinci - Clone 
+
+## 
+
+<img src="https://github.com/wilsonmjunior/davinci-app/assets/11083214/ccfa7abe-9d5e-4093-b6d6-6b10b2ab38cc" width="250" />
+
 ## Features
 
 - **React Native**: A framework for building native mobile apps using JavaScript and React.
@@ -5,10 +11,6 @@
 - **Expo Router**: A router component for React Native applications built with Expo.
 - **Moti**: A performant animations library for React Native.
 - **React Native Reanimated**: A React Native library providing a fully native, reimagined animation API.
-
-## 
-
-<img src="https://github.com/wilsonmjunior/davinci-app/assets/11083214/ccfa7abe-9d5e-4093-b6d6-6b10b2ab38cc" width="250" />
 
 ## Getting Started
 
@@ -27,6 +29,7 @@
   ```bash
 git clone https://github.com/wilsonmjunior/davinci-ui.git
 ```
+
 
 ### Screenshots 
 
